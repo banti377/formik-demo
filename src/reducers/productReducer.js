@@ -74,8 +74,9 @@ const appReducer = (state = initialState, action) => {
         const err = action.payload.validatedData.find(
           (error) => error.id === fileName
         );
-
-        errors[productCode] = err?.validationMessages[0]?.validationMessages[0];
+        if (err?.validationMessages[0]?.validationMessages)
+          errors[productCode] =
+            err.validationMessages[0].validationMessages.join(' ');
       });
 
       return {
